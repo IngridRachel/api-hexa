@@ -63,12 +63,18 @@ class Player(Person):
     team = models.ForeignKey("team", on_delete=models.CASCADE, related_name="players")
 
 class Team(ModelBase):
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=50, null=False, blank=False)
     federation = models.CharField()
     year_founded = models.IntegerField()
     team_group = models.ForeignKey(
         TeamGroup, on_delete=models.CASCADE, related_name="teams", null=True, blank=True
     )
+
+    class Meta:
+        constraints=[
+            models.UniqueConstraint(fields=["name", "federation", "year_founded"], name="unique_name_federation_founded")
+        ]
+
 
     def __str__(self):
         return self.name

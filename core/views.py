@@ -1,19 +1,29 @@
 from rest_framework import viewsets
-from core import models, serializer
- 
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.permissions import (
+    AllowAny,
+    IsAuthenticated,
+    IsAuthenticatedOrReadOnly,
+)
+from core import models, serializer, filters
 
-class TeamGroupViewSet(viewsets.ModelViewSet):
+class BaseViewSet(viewsets.ModelViewSet):
+    permission_classes = [IsAuthenticatedOrReadOnly]
+    filter_backends = [DjangoFilterBackend]
+
+class TeamGroupViewSet(BaseViewSet):
     queryset= models.TeamGroup.objects.all()
     serializer_class = serializer.TeamGroupSerialzer
+    filterset_class = filters.TeamGroupFilter
 
-class TeamViewSet(viewsets.ModelViewSet):
+class TeamViewSet(BaseViewSet):
     queryset =  models.Team.objects.all()
     serializer_class = serializer.TeamSerializer
 
-class PlayerViewSet(viewsets.ModelViewSet):
+class PlayerViewSet(BaseViewSet):
     queryset =models.Player.objects.all()
     serializer_class = serializer.PlayerSerializer
 
-class CoachViewSet (viewsets.ModelViewSet):
+class CoachViewSet (BaseViewSet):
     queryset = models.Coach.objects.all()
     serializer_class = serializer.CoachSerializer

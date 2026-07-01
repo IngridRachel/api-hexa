@@ -36,6 +36,7 @@ class PlayerSerializer(ModelSeralizer):
         representation["team"] = instance.team.name
         representation['shirt_size'] = instance.get_shirt_size_display()
         representation["position"] = instance.get_position_display()
+        representation["foot_preference"] = instance.get_foot_preference()
         return representation
         
     
