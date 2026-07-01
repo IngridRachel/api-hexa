@@ -19,11 +19,15 @@ class TeamGroupViewSet(BaseViewSet):
 class TeamViewSet(BaseViewSet):
     queryset =  models.Team.objects.all()
     serializer_class = serializer.TeamSerializer
+    filterset_class = filters.TeamFilter
 
 class PlayerViewSet(BaseViewSet):
     queryset =models.Player.objects.all()
     serializer_class = serializer.PlayerSerializer
+    filterset_class = filters.PlayerFilter
+
 
 class CoachViewSet (BaseViewSet):
     queryset = models.Coach.objects.all()
     serializer_class = serializer.CoachSerializer
+    filterset_class = filters.CoachFilter
