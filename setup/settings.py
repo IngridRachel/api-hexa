@@ -14,7 +14,11 @@ ALLOWED_HOSTS = []
 
 REST_FRAMEWORK = {
     
-    'DEFAULT_AUTHENTICATION_CLASSES': (
+    'DEFAULT_AUTHENTICATION_CLASSES': 'rest_framework.pagination.PageNumberPagination',
+     'PAGE_SIZE': 3,
+      'DEFAULT_AUTHENTTICATION_CLASSES': (
+          'rest_framework_simplejwt.authentication.JWTAuthentication',
+          'rest_framework_authentication.SessionAuthentication',
         
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
